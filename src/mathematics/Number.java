@@ -1,13 +1,14 @@
 package mathematics;
 
-public class Number implements Node {
-    private final Long number;
+public class Number extends Node {
+    private final Double number;
 
-    public Number(Long number) {
+    public Number(Double number) {
+        super(ENodeType.NUMBER);
         this.number = number;
     }
 
-    public Long getNumber() {
+    public Double getNumber() {
         return number;
     }
 }

@@ -1,19 +1,39 @@
 package mathematics;
 
 public class EvalExpressionVisitor {
-    public Long visitNode(Node node) {
-        return switch (node.getClass()) {
-            case Number.class -> visitNumber((Number) node);
-            case Add.class -> visitAdd((Add) node);
-            //case Multiply.class -> visitMultiply((Multiply) node);
-        };
+    public double visitNode(Node node) {
+        switch (node.getNodeType()) {
+            case NUMBER: return visitNumber((Number) node);
+            case ADD: return visitAdd((Add) node);
+            case SUBTRACT: return visitSubtract((Subtract) node);
+            case MULTIPLY: return visitMultiply((Multiply) node);
+            case DIVIDE: return visitDivide((Divide) node);
+            case SIN: return visitSin((Sin) node);
+        }
+        throw new RuntimeException("error");
     }
 
-    private Long visitNumber(Number number) {
+    private double visitNumber(Number number) {
         return number.getNumber();
     }
 
-    private Long visitAdd(Add add) {
+    private double visitAdd(Add add) {
         return visitNode(add.getLeft()) + visitNode(add.getRight());
     }
+
+    private double visitSubtract(Subtract subtract) {
+        return visitNode(subtract.getLeft()) - visitNode(subtract.getRight());
+    }
+    private double visitMultiply(Multiply multiply) {
+        return visitNode(multiply.getLeft()) * visitNode(multiply.getRight());
+    }
+
+    private double visitDivide(Divide divide) {
+        return visitNode(divide.getLeft()) / visitNode(divide.getRight());
+    }
+
+    private double visitSin(Sin sin) {
+        return Math.sin(Math.toRadians(visitNode(sin.getOperand())));
+    }
+
 }
