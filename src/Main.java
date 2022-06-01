@@ -1,5 +1,9 @@
+import graphics.Graphics;
 import mathematics.*;
 import mathematics.Number;
+import parser.Parser;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,5 +30,19 @@ public class Main {
         //sin(90)
         Node node5 = new Sin(new Number(90.));
         System.out.println(evalExpressionVisitor.visitNode(node5));
+
+        try {
+            Node node6 = new Parser().parse("19.9*(3+3)*9.78");
+            System.out.println(evalExpressionVisitor.visitNode(node6));
+        } catch (Exception e) {
+            System.out.println("chyba");
+        }
+        Graphics g = new Graphics();
+        JFrame jFrame = new JFrame();
+        //jFrame.setContentPane();
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jFrame.pack();
+        jFrame.setVisible(true);
+
     }
 }

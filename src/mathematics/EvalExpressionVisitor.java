@@ -9,9 +9,14 @@ public class EvalExpressionVisitor {
             case MULTIPLY: return visitMultiply((Multiply) node);
             case DIVIDE: return visitDivide((Divide) node);
             case SIN: return visitSin((Sin) node);
+            case COS: return visitCos((Cos) node);
+            case TG: return visitTg((Tg) node);
+            case COTG: return visitCotg((Cotg) node);
         }
         throw new RuntimeException("error");
     }
+
+
 
     private double visitNumber(Number number) {
         return number.getNumber();
@@ -34,6 +39,18 @@ public class EvalExpressionVisitor {
 
     private double visitSin(Sin sin) {
         return Math.sin(Math.toRadians(visitNode(sin.getOperand())));
+    }
+
+    private double visitCos(Cos cos) {
+        return Math.cos(Math.toRadians(visitNode(cos.getOperand())));
+    }
+
+    private double visitTg(Tg tg) {
+        return Math.tan(Math.toRadians(visitNode(tg.getOperand())));
+    }
+
+    private double visitCotg(Cotg cotg) {
+        return 1/Math.tan(Math.toRadians(visitNode(cotg.getOperand())));
     }
 
 }
