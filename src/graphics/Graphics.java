@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 public class Graphics {
 
+    private JPanel panel;
     private JTextArea textField1;
     private JButton sinButton;
     private JButton cosButton;
@@ -31,12 +32,11 @@ public class Graphics {
     private JButton zeroButton;
     private JButton decimalButton;
     private JButton divideButton;
-    private JPanel panel;
-    private JLabel errorMessage;
     private JButton clearAllButton;
     private JButton deleteCharButton;
     private JButton leftBracketButton;
     private JButton rightBracketButton;
+    private JLabel errorMessage;
 
     private boolean clear = false;
 
