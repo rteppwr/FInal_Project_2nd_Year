@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Třída Graphics slouží k implementaci grafického uživatelského rozhraní pro interakci s matematickými výrazy.
+ */
 public class Graphics {
 
     private JPanel panel;
@@ -40,6 +43,9 @@ public class Graphics {
 
     private boolean clear = false;
 
+    /**
+     * Konstruktor třídy Graphics inicializuje komponenty uživatelského rozhraní a přiřazuje jim odpovídající akční metody.
+     */
     public Graphics() {
         zeroButton.addActionListener(createActionListener("0"));
         oneButton.addActionListener(createActionListener("1"));
@@ -59,6 +65,11 @@ public class Graphics {
         leftBracketButton.addActionListener(createActionListener("("));
         rightBracketButton.addActionListener(createActionListener(")"));
 
+        sinButton.addActionListener(createActionListener("sin("));
+        cosButton.addActionListener(createActionListener("cos("));
+        tgButton.addActionListener(createActionListener("tg("));
+        cotgButton.addActionListener(createActionListener("cotg("));
+
         equalsButton.addActionListener(e -> {
             try {
                 clear = true;
@@ -66,7 +77,7 @@ public class Graphics {
                 double v = new EvalExpressionVisitor().visitNode(parse);
                 textField1.setText(String.valueOf(v));
             } catch (Exception ex) {
-                errorMessage.setText("Chyba vyrazu");
+                errorMessage.setText("Chyba ve výrazu");
             }
         });
 
@@ -81,7 +92,7 @@ public class Graphics {
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
+        // TODO: umístění vlastního kódu pro vytváření komponent zde
     }
 
     private ActionListener createActionListener(String symbol) {
@@ -101,6 +112,5 @@ public class Graphics {
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jFrame.pack();
         jFrame.setVisible(true);
-
     }
 }

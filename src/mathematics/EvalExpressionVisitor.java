@@ -1,6 +1,19 @@
 package mathematics;
 
+import java.sql.SQLOutput;
+
+/**
+ * Třída EvalExpressionVisitor slouží k vyhodnocení stromové reprezentace matematického výrazu.
+ */
 public class EvalExpressionVisitor {
+
+    /**
+     * Metoda visitNode provádí vyhodnocení daného uzlu stromu výrazu a vrací výsledek.
+     *
+     * @param node uzel stromu výrazu
+     * @return výsledek vyhodnocení
+     * @throws RuntimeException pokud je výraz neplatný nebo dojde k chybě při vyhodnocování
+     */
     public double visitNode(Node node) {
         switch (node.getNodeType()) {
             case NUMBER: return visitNumber((Number) node);
@@ -13,10 +26,8 @@ public class EvalExpressionVisitor {
             case TG: return visitTg((Tg) node);
             case COTG: return visitCotg((Cotg) node);
         }
-        throw new RuntimeException("error");
+        throw new RuntimeException("Chyba při vyhodnocování výrazu");
     }
-
-
 
     private double visitNumber(Number number) {
         return number.getNumber();
@@ -29,6 +40,7 @@ public class EvalExpressionVisitor {
     private double visitSubtract(Subtract subtract) {
         return visitNode(subtract.getLeft()) - visitNode(subtract.getRight());
     }
+
     private double visitMultiply(Multiply multiply) {
         return visitNode(multiply.getLeft()) * visitNode(multiply.getRight());
     }
@@ -52,5 +64,4 @@ public class EvalExpressionVisitor {
     private double visitCotg(Cotg cotg) {
         return 1/Math.tan(Math.toRadians(visitNode(cotg.getOperand())));
     }
-
 }

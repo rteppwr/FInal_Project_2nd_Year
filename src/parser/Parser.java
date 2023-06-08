@@ -9,7 +9,18 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Třída Parser se používá k parsování matematických výrazů a vytváření jejich stromové reprezentace.
+ */
 public class Parser {
+
+    /**
+     * Metoda parse provádí parsování zadaného výrazu a vrací jeho stromovou reprezentaci.
+     *
+     * @param expression matematický výraz k parsování
+     * @return kořenový uzel stromové reprezentace výrazu
+     * @throws RuntimeException pokud výraz neodpovídá očekávané syntaxi
+     */
     public Node parse(String expression) {
         List<Object> tokens = getTokens("(" + expression + ")");
         Stack<String> operatorStack = new Stack<>();
@@ -18,7 +29,7 @@ public class Parser {
             input(o, operatorStack, expressionStack);
         }
         if (expressionStack.size() != 1 || !operatorStack.isEmpty()) {
-            throw new RuntimeException("END");
+            throw new RuntimeException("Neplatný výraz");
         }
         return expressionStack.pop();
     }
@@ -68,7 +79,7 @@ public class Parser {
             operatorStack.pop();
 
         } else {
-            throw new RuntimeException(c);
+            throw new RuntimeException("Neplatný znak: " + c);
         }
     }
 
@@ -82,6 +93,6 @@ public class Parser {
         } else if ("/".equals(operation)) {
             return new Divide(left, right);
         }
-        throw new RuntimeException("Unknown operation" + operation);
+        throw new RuntimeException("Neznámá operace: " + operation);
     }
 }
